@@ -1,0 +1,9 @@
+Imagens/**/*.png
+Imagens/**/*.jpg
+Imagens/**/*.jpeg
+node_modules/
+package.json
+package-lock.json
+convert.js
+component.json
+component2.json

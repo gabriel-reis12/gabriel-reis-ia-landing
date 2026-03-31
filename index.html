@@ -1,0 +1,4238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gabriel Reis IA — Biblioteca Completa</title>
+  <meta name="description"
+    content="6 ebooks técnicos sobre automação, agentes de IA, SaaS e deploy. Conteúdo aplicado, não teoria. De quem já entregou para 40+ empresas.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,700;0,800;1,800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0A0A0A;
+      --card-1: #111111;
+      --card-2: #161616;
+      --border: #222222;
+      --primary: #FF4D00;
+      --primary-h: #ff6420;
+      --secondary: #FFCC00;
+      --text: #F0EEFC;
+      --muted: #888888;
+      --success: #39D98A;
+
+      --f-head: 'Plus Jakarta Sans', sans-serif;
+      --f-mono: 'DM Mono', monospace;
+      --f-body: 'Inter', sans-serif;
+      --f-outfit: 'Outfit', sans-serif;
+
+      --r: 10px;
+      --r-l: 12px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== SECTION BACKGROUNDS ===== */
+    .section--hero {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 77, 0, 0.08) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .section--biblioteca {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(0, 112, 255, 0.07) 0%, transparent 50%),
+        #080A0F;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .section--cases {
+      background:
+        radial-gradient(circle at 20% 80%, rgba(147, 51, 234, 0.07) 0%, transparent 50%),
+        #0B080F;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .section--sobre {
+      background: #0E0E0E;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .section--faq {
+      background: #050505;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* ===== GALAXY GLOBAL OVERLAY ===== */
+    .galaxy-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, .018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, .018) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .galaxy-sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ===== UTILITIES ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .label {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ===== FADE-UP ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .fade-up.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .fade-up.d1 {
+      transition-delay: .10s;
+    }
+
+    .fade-up.d2 {
+      transition-delay: .20s;
+    }
+
+    .fade-up.d3 {
+      transition-delay: .30s;
+    }
+
+    .fade-up.d4 {
+      transition-delay: .40s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: rgba(10, 10, 10, .92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav__logo {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav__logo em {
+      color: var(--primary);
+      font-style: normal;
+    }
+
+    .nav__cta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: #0A0A0A;
+      padding: 10px 20px;
+      border-radius: var(--r);
+      transition: background .2s;
+      white-space: nowrap;
+    }
+
+    .nav__cta:hover {
+      background: var(--primary-h);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-p {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: #0A0A0A;
+      padding: 16px 32px;
+      border-radius: var(--r);
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+
+    .btn-p:hover {
+      background: var(--primary-h);
+      transform: translateY(-1px);
+    }
+
+    .btn-s {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--text);
+      padding: 16px 32px;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+
+    .btn-s:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+
+    /* grid handled by global .galaxy-grid overlay */
+    .hero::before {
+      display: none;
+    }
+
+    /* radial vignette over grid */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 85% 65% at 50% 50%, transparent 35%, var(--bg) 100%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 100%;
+      padding: 0 24px;
+    }
+
+    /* corner brackets */
+    .hero-corner {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      z-index: 3;
+    }
+
+    .hero-corner--tl {
+      top: 72px;
+      left: 32px;
+      border-top: 1px solid var(--primary);
+      border-left: 1px solid var(--primary);
+    }
+
+    .hero-corner--tr {
+      top: 72px;
+      right: 32px;
+      border-top: 1px solid var(--primary);
+      border-right: 1px solid var(--primary);
+    }
+
+    .hero-corner--bl {
+      bottom: 32px;
+      left: 32px;
+      border-bottom: 1px solid var(--primary);
+      border-left: 1px solid var(--primary);
+    }
+
+    .hero-corner--br {
+      bottom: 32px;
+      right: 32px;
+      border-bottom: 1px solid var(--primary);
+      border-right: 1px solid var(--primary);
+    }
+
+    /* announce badge */
+    .logos__track {
+      display: flex;
+      width: max-content;
+      gap: 3rem;
+      animation: scroll-infinite 40s linear infinite;
+    }
+
+    .logo-item {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      transition: all 0.3s ease;
+      filter: grayscale(1) opacity(0.5);
+      padding: 0.5rem 1rem;
+    }
+
+    .hero-announce {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 2px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: heroIn .5s ease .1s forwards;
+    }
+
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.65);
+      }
+    }
+
+    /* word-by-word blur reveal */
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    .hero__h1 {
+      font-family: var(--f-head);
+      font-size: clamp(44px, 8vw, 88px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+
+    .hero__h1 .w {
+      display: inline-block;
+      opacity: 0;
+      animation: heroIn .55s ease forwards;
+    }
+
+    .hero__h1 em {
+      color: var(--primary);
+      font-style: normal;
+    }
+
+    .hero__sub {
+      font-size: 18px;
+      line-height: 1.78;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      opacity: 0;
+      animation: heroIn .55s ease forwards;
+    }
+
+    /* feature pills */
+    .hero__pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: heroIn .55s ease forwards;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .hero-pill svg {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 60px;
+      opacity: 0;
+      animation: heroIn .55s ease forwards;
+    }
+
+    /* stats row */
+    .hero__stats {
+      border-top: 1px solid var(--border);
+      padding-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: heroIn .55s ease forwards;
+    }
+
+    .stat__val {
+      font-family: var(--f-head);
+      font-size: 30px;
+      font-weight: 800;
+      display: block;
+    }
+
+    .stat__lbl {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 40px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    /* ===== PREMIUM PRICING (REIMAGINED) ===== */
+    .combo {
+      position: relative;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .pricing-bg {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 600px;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 77, 0, 0.15) 0%, transparent 70%);
+      opacity: 0.6;
+    }
+
+    /* grid handled by global .galaxy-grid overlay */
+    .pricing-grid-overlay {
+      display: none;
+    }
+
+    .combo__header {
+      text-align: center;
+      margin-bottom: 64px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .combo__grid-premium {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .p-card {
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .p-card:hover {
+      border-color: rgba(255, 77, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .p-card--featured {
+      background: linear-gradient(145deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+      border: 1px solid rgba(255, 77, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(255, 77, 0, 0.05);
+    }
+
+    .p-card__tag {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .p-card__title {
+      font-family: var(--f-outfit);
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .p-card__desc {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .p-price-wrap {
+      margin-bottom: 32px;
+    }
+
+    .p-price-label {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .p-price-val {
+      font-family: var(--f-outfit);
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .p-price-val em {
+      font-size: 24px;
+      font-style: normal;
+      color: var(--primary);
+      margin-right: 4px;
+    }
+
+    .p-features {
+      list-style: none;
+      margin-bottom: 40px;
+      flex: 1;
+    }
+
+    .p-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--text);
+      opacity: 0.85;
+    }
+
+    .p-feature-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .p-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 14px;
+      font-family: var(--f-outfit);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .p-btn--outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .p-btn--outline:hover {
+      background: var(--border);
+    }
+
+    .p-btn--primary {
+      background: var(--primary);
+      color: #0A0A0A;
+      box-shadow: 0 8px 20px rgba(255, 77, 0, 0.2);
+    }
+
+    .p-btn--primary:hover {
+      background: var(--primary-h);
+      transform: scale(1.02);
+    }
+
+    .p-badge-promo {
+      background: rgba(255, 204, 0, 0.1);
+      color: var(--secondary);
+      border: 1px solid rgba(255, 204, 0, 0.2);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    /* List for individual items */
+    .p-ebook-list {
+      margin-top: 10px;
+    }
+
+    .p-ebook-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .p-ebook-item span:first-child {
+      color: var(--muted);
+    }
+
+    .p-ebook-item span:last-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: sparkle 3s infinite;
+      will-change: opacity, transform;
+    }
+
+    /* ===== CASES ===== */
+    .cases__header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .cases__intro {
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 16px auto 0;
+    }
+
+    .cases__h2 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-top: 12px;
+    }
+
+    /* tab nav — equidistante */
+    .cases__tabs {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cases__tab {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cases__tab:hover {
+      color: var(--text);
+    }
+
+    .cases__tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* content panels */
+    .cases__panel {
+      display: none;
+      background: var(--card-1);
+      border: 1px solid var(--border);
+      border-radius: var(--r-l);
+      overflow: hidden;
+    }
+
+    .cases__panel.active {
+      display: block;
+    }
+
+    .cases__panel-inner {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      min-height: 480px;
+    }
+
+    /* left: text */
+    .cases__info {
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .case-seg {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .case-title {
+      font-family: var(--f-head);
+      font-size: clamp(24px, 2.8vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .case-desc {
+      font-size: 15px;
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* right: image slider */
+    .cases__img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 480px;
+    }
+
+    /* slides */
+    .img-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .img-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity .35s ease;
+      pointer-events: none;
+    }
+
+    .img-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .img-slide img {
+      max-width: 100%;
+      max-height: 448px;
+      width: 100%;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+      border-radius: 6px;
+    }
+
+    /* slider arrows */
+    .slider-prev,
+    .slider-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: rgba(10, 10, 10, .75);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      backdrop-filter: blur(6px);
+    }
+
+    .slider-prev {
+      left: 12px;
+    }
+
+    .slider-next {
+      right: 12px;
+    }
+
+    .slider-prev:hover,
+    .slider-next:hover {
+      border-color: var(--primary);
+      background: rgba(255, 77, 0, .12);
+    }
+
+    .slider-prev svg,
+    .slider-next svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* slider dots */
+    .slider-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .slider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .slider-dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
+
+    /* ── RESPONSIVE ── */
+    /* tablet */
+    @media (max-width: 900px) {
+      .cases__panel-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .cases__info {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 32px 28px;
+      }
+
+      .cases__img-wrap {
+        min-height: 300px;
+      }
+
+      .img-slide img {
+        max-height: 268px;
+      }
+    }
+
+    /* iPhone 14 / small mobile (≤ 430px) */
+    @media (max-width: 640px) {
+      .cases__tabs {
+        grid-template-columns: none;
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .cases__tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .cases__tab {
+        flex-shrink: 0;
+        flex: none;
+        padding: 12px 16px;
+        font-size: 9px;
+        letter-spacing: 1.5px;
+      }
+
+      .cases__info {
+        padding: 28px 20px;
+        gap: 16px;
+      }
+
+      .cases__img-wrap {
+        min-height: 220px;
+      }
+
+      .img-slide img {
+        max-height: 190px;
+      }
+
+      .cases__header {
+        margin-bottom: 36px;
+      }
+    }
+
+    /* ===== IMAGENS BEFORE/AFTER ===== */
+    .imgcomp {
+      border-top: 1px solid var(--border);
+    }
+
+    .imgcomp__header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .imgcomp__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .imgcomp-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 9/14;
+      cursor: col-resize;
+      user-select: none;
+      border: 1px solid var(--border);
+      background: var(--card-1);
+    }
+
+    .imgcomp-card__before,
+    .imgcomp-card__after {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .imgcomp-card__before {
+      z-index: 1;
+    }
+
+    .imgcomp-card__after {
+      z-index: 2;
+      clip-path: inset(0 50% 0 0);
+    }
+
+    .imgcomp-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--card-2);
+    }
+
+    .imgcomp-placeholder svg {
+      width: 32px;
+      height: 32px;
+      color: var(--border);
+    }
+
+    .imgcomp-placeholder span {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--border);
+      text-transform: uppercase;
+    }
+
+    .imgcomp-card__divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: white;
+      z-index: 10;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .imgcomp-card__handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11;
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+      pointer-events: none;
+    }
+
+    .imgcomp-card__handle svg {
+      width: 16px;
+      height: 16px;
+      color: #111;
+    }
+
+    .imgcomp-card__labels {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 14px;
+      z-index: 12;
+      pointer-events: none;
+    }
+
+    .imgcomp-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, .55);
+      backdrop-filter: blur(4px);
+      color: white;
+    }
+
+    .imgcomp-label--after {
+      color: var(--primary);
+    }
+
+    .imgcomp-placeholder--before {
+      z-index: 1;
+    }
+
+    .imgcomp-placeholder--after {
+      background: rgba(255, 77, 0, .04);
+      color: var(--primary);
+    }
+
+    .imgcomp-placeholder--after svg {
+      color: var(--primary);
+    }
+
+    .imgcomp-placeholder--after span {
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .imgcomp__grid {
+        grid-template-columns: 1fr;
+        max-width: 360px;
+        margin: 0 auto;
+      }
+    }
+
+    /* ===== SOBRE ===== */
+    .sobre {
+      background: var(--card-1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sobre__top {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .sobre__eyebrow {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .sobre__h2 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.06;
+    }
+
+    .sobre__sub {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 14px auto 0;
+    }
+
+    /* 3-col grid */
+    .sobre__grid {
+      display: grid;
+      grid-template-columns: 1fr 300px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .sobre__skills {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-top: 16px;
+    }
+
+    .skill-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: transform .2s ease;
+      cursor: default;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .skill-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r);
+      background: rgba(255, 77, 0, .08);
+      border: 1px solid rgba(255, 77, 0, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+
+    .skill-item:hover .skill-icon {
+      background: rgba(255, 77, 0, .16);
+      border-color: var(--primary);
+    }
+
+    .skill-icon svg {
+      color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .skill-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .sobre__skills--right .skill-item {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    /* center photo */
+    .sobre__photo-col {
+      position: relative;
+    }
+
+    .sobre__photo-frame {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 0 5px var(--card-2), 0 0 0 6px var(--border);
+    }
+
+    .sobre__photo-frame img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 3/4;
+    }
+
+    .sobre__photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 10, 10, .88) 0%, rgba(10, 10, 10, .2) 40%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px 20px;
+      gap: 12px;
+      border-radius: 14px;
+    }
+
+    .sobre__handle {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      color: rgba(240, 238, 252, .65);
+    }
+
+    .sobre__overlay-cta {
+      display: block;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: #0A0A0A;
+      padding: 12px 18px;
+      border-radius: var(--r);
+      border: none;
+      cursor: pointer;
+      transition: background .2s;
+      text-align: center;
+    }
+
+    .sobre__overlay-cta:hover {
+      background: var(--primary-h);
+    }
+
+    /* stats row */
+    .sobre__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-l);
+      overflow: hidden;
+      gap: 1px;
+      margin-top: 48px;
+    }
+
+    .m-card {
+      background: var(--card-2);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background .2s;
+    }
+
+    .m-card:hover {
+      background: #1c1c1c;
+    }
+
+    .m-val {
+      font-family: var(--f-head);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      display: block;
+    }
+
+    .m-lbl {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+
+    @media (max-width: 960px) {
+      .sobre__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .sobre__photo-col {
+        max-width: 360px;
+        margin: 0 auto;
+        width: 100%;
+        order: -1;
+      }
+
+      .sobre__skills--right .skill-item {
+        flex-direction: row;
+        text-align: left;
+      }
+
+      .sobre__stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sobre__top {
+        margin-bottom: 36px;
+      }
+    }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depo-v2 {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+
+    .depo-columns-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      height: 580px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* top + bottom fade masks */
+    .depo-columns-wrapper::before,
+    .depo-columns-wrapper::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 100px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .depo-columns-wrapper::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--bg), transparent);
+    }
+
+    .depo-columns-wrapper::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+
+    .depo-col {
+      overflow: hidden;
+    }
+
+    .depo-col-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      will-change: transform;
+    }
+
+    .depo-col--1 .depo-col-inner {
+      animation: depo-up 28s linear infinite;
+    }
+
+    .depo-col--2 .depo-col-inner {
+      animation: depo-down 32s linear infinite;
+    }
+
+    .depo-col--3 .depo-col-inner {
+      animation: depo-up 25s linear infinite;
+    }
+
+    .depo-col:hover .depo-col-inner {
+      animation-play-state: paused;
+    }
+
+    @keyframes depo-up {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+
+    @keyframes depo-down {
+      0% {
+        transform: translateY(-50%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .depo-card {
+      background: rgba(17, 17, 17, .7);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color .2s;
+    }
+
+    .depo-card:hover {
+      border-color: rgba(255, 77, 0, .3);
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+    }
+
+    .stars svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--secondary);
+    }
+
+    .depo-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(240, 238, 252, .75);
+      flex: 1;
+    }
+
+    .depo-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .depo-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .depo-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -.2px;
+    }
+
+    .depo-role {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      background: transparent;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .faq__left {
+      position: sticky;
+      top: 100px;
+    }
+
+    .faq__eyebrow {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .faq__title {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .faq__sub {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .faq__cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 77, 0, .3);
+      padding-bottom: 4px;
+      transition: border-color .2s;
+    }
+
+    .faq__cta-link:hover {
+      border-color: var(--primary);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      transition: background .2s ease;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item.open {
+      background: rgba(255, 77, 0, .03);
+    }
+
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      gap: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-btn-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .faq-num {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--primary);
+      opacity: .6;
+      min-width: 24px;
+      transition: opacity .2s;
+    }
+
+    .faq-item.open .faq-num {
+      opacity: 1;
+    }
+
+    .faq-q {
+      font-family: var(--f-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .faq-icon-wrap {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .25s ease;
+    }
+
+    .faq-item.open .faq-icon-wrap {
+      border-color: var(--primary);
+      background: rgba(255, 77, 0, .08);
+    }
+
+    .faq-icon {
+      width: 14px;
+      height: 14px;
+      color: var(--muted);
+      transition: transform .25s ease, color .25s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      color: var(--primary);
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .faq-item.open .faq-body {
+      max-height: 300px;
+    }
+
+    .faq-a {
+      padding: 0 0 24px 42px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .sec-header {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .faq__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .faq__left {
+        position: static;
+      }
+    }
+
+    /* ===== CTA FINAL ===== */
+    .cta-final {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255, 77, 0, .10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 64px 72px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .03) 0%, rgba(255, 255, 255, .01) 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 77, 0, .5) 0%, transparent 50%, rgba(255, 77, 0, .15) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(255, 77, 0, .08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--primary);
+      border: 1px solid rgba(255, 77, 0, .3);
+      background: rgba(255, 77, 0, .06);
+      padding: 6px 14px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .cta-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .cta-h2 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .cta-h2 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .cta-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cta-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, .75);
+      font-family: var(--f-body);
+    }
+
+    .cta-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 77, 0, .12);
+      border: 1px solid rgba(255, 77, 0, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .cta-right {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border-left: 1px solid var(--border);
+      padding-left: 64px;
+    }
+
+    .cta-pricing-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cta-price-old {
+      font-family: var(--f-body);
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .cta-price-main {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .cta-price-currency {
+      font-family: var(--f-head);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      opacity: .7;
+    }
+
+    .cta-price-value {
+      font-family: var(--f-head);
+      font-size: clamp(48px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .cta-price-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, .1);
+      border: 1px solid rgba(34, 197, 94, .3);
+      color: #4ade80;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .cta-price-note {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--f-body);
+    }
+
+    .cta-btn-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cta-btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 32px;
+      border-radius: 8px;
+      transition: all .25s ease;
+      box-shadow: 0 8px 32px rgba(255, 77, 0, .35);
+    }
+
+    .cta-btn-primary:hover {
+      background: #e63d00;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255, 77, 0, .5);
+    }
+
+    .cta-guarantees {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta-guarantee-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--f-body);
+    }
+
+    .cta-guarantee-item svg {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .cta-card {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 32px;
+      }
+
+      .cta-right {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cta-final {
+        padding: 60px 0;
+      }
+
+      .cta-card {
+        padding: 32px 24px;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer__logo {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .footer__logo em {
+      color: var(--primary);
+      font-style: normal;
+    }
+
+    .footer__links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer__links a {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color .2s;
+    }
+
+    .footer__links a:hover {
+      color: var(--primary);
+    }
+
+    .footer__copy {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ===== LOGOS / TECH STACK ===== */
+    .logos {
+      padding: 22px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      position: relative;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .logos__header {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .logos__heading {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+
+    /* Infinite Scroll Container */
+    .logos__carousel {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Gradient Masks for fade effect (Sutil) */
+    .logos__carousel::before,
+    .logos__carousel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .logos__carousel::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg) 10%, rgba(10, 10, 10, 0) 100%);
+    }
+
+    .logos__carousel::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg) 10%, rgba(10, 10, 10, 0) 100%);
+    }
+
+    .logos__track {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      width: max-content;
+      animation: logo-scroll 35s linear infinite;
+      /* "rápido mas nem tanto" */
+      padding-left: 40px;
+    }
+
+    @keyframes logo-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+
+      /* Assume double items list */
+    }
+
+    .logo-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0.5;
+      filter: grayscale(1) brightness(0.8);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo-item:hover {
+      opacity: 1;
+      filter: grayscale(0) brightness(1.2);
+      transform: scale(1.05);
+    }
+
+    .logo-item svg,
+    .logo-item img {
+      height: 28px;
+      width: auto;
+      transition: transform 0.4s ease;
+    }
+
+    .logo-item span {
+      font-family: var(--f-outfit);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .logos {
+        padding: 40px 0;
+      }
+
+      .logos__track {
+        gap: 40px;
+        animation-duration: 25s;
+      }
+
+      .logos__carousel::before,
+      .logos__carousel::after {
+        width: 80px;
+      }
+
+      .logo-item svg,
+      .logo-item img {
+        height: 22px;
+      }
+
+      .logo-item span {
+        font-size: 14px;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .case-card {
+        min-width: calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 64px 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 100px 0 64px;
+      }
+
+      .hero-corner--tl,
+      .hero-corner--tr {
+        top: 68px;
+      }
+
+      .combo__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .combo__grid-premium {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .case-card {
+        min-width: calc(85vw);
+      }
+
+      .sobre__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .sobre__photo {
+        max-width: 100%;
+      }
+
+      .depo-columns-wrapper {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+
+      .depo-col--2,
+      .depo-col--3 {
+        display: none;
+      }
+
+      .depo-col--1 .depo-col-inner {
+        animation: none;
+      }
+
+      .depo-columns-wrapper::before,
+      .depo-columns-wrapper::after {
+        display: none;
+      }
+
+      .footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stat-item {
+        padding: 0 20px;
+      }
+
+      .nav__cta {
+        font-size: 10px;
+        padding: 8px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__actions {
+        flex-direction: column;
+      }
+
+      .hero-corner {
+        display: none;
+      }
+
+      .btn-p,
+      .btn-s {
+        text-align: center;
+        width: 100%;
+      }
+
+      .stat-item {
+        padding: 0 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Galaxy background: fixed grid + sparkles -->
+  <div class="galaxy-grid"></div>
+  <div class="galaxy-sparkles" id="galaxy-sparkles"></div>
+
+  <!-- ===== 01 · NAV ===== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo">Gabriel Reis <em>IA</em></a>
+      <a href="#combo" class="nav__cta">Quero a Biblioteca</a>
+    </div>
+  </nav>
+  <!-- ===== 02 · HERO ===== -->
+  <section class="hero section--hero" id="home">
+    <!-- corner brackets -->
+    <div class="hero-corner hero-corner--tl"></div>
+    <div class="hero-corner hero-corner--tr"></div>
+    <div class="hero-corner hero-corner--bl"></div>
+    <div class="hero-corner hero-corner--br"></div>
+
+    <div class="hero__inner">
+
+      <!-- announce badge -->
+      <div>
+        <span class="hero-announce">
+          <span class="hero-dot"></span>
+          Biblioteca Completa · 6 Ebooks · 2026
+        </span>
+      </div>
+
+      <!-- headline: cada palavra animada individualmente via JS -->
+      <h1 class="hero__h1" id="heroH1" data-text="Aprenda a construir com IA de verdade" data-em="IA de verdade">
+        Aprenda a construir com <em>IA de verdade</em>
+      </h1>
+
+      <p class="hero__sub" style="animation-delay:.82s;">
+        6 ebooks técnicos sobre automação, agentes de IA, SaaS e deploy. Conteúdo aplicado, não teoria. Escrito por quem
+        já entregou para 40+ empresas.
+      </p>
+
+      <!-- feature pills -->
+      <div class="hero__pills" style="animation-delay:1.05s;">
+        <span class="hero-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          6 Ebooks
+        </span>
+        <span class="hero-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+          200+ Páginas
+        </span>
+        <span class="hero-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          Cases Reais
+        </span>
+        <span class="hero-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          Atualizado 2026
+        </span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="hero__actions" style="animation-delay:1.28s;">
+        <a href="#combo" class="btn-p">Quero a Biblioteca — R$47,90</a>
+        <a href="#combo" class="btn-s">Ver os Ebooks</a>
+      </div>
+
+      <!-- stats row -->
+      <div class="hero__stats" style="animation-delay:1.5s;">
+        <div class="stat-item">
+          <span class="stat__val">40+</span>
+          <span class="stat__lbl">Empresas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat__val">100+</span>
+          <span class="stat__lbl">Projetos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat__val">6</span>
+          <span class="stat__lbl">Ebooks</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat__val">70%</span>
+          <span class="stat__lbl">Desconto</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TECH STACK / LOGOS ===== -->
+  <section class="logos section-sm">
+    <div class="container">
+      <div class="logos__header fade-up">
+        <h2 class="logos__heading">Tecnologias que impulsionam o seu ROI</h2>
+      </div>
+    </div>
+
+    <div class="logos__carousel fade-up d1">
+      <div class="logos__track">
+        <!-- Set 1 -->
+        <div class="logo-item" title="Supabase">
+          <img src="https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" alt="Supabase">
+          <span>Supabase</span>
+        </div>
+        <div class="logo-item" title="Vercel">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 22.525H0l12-21.05 12 21.05z" />
+          </svg>
+          <span>Vercel</span>
+        </div>
+        <div class="logo-item" title="Anthropic">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M13.827 3.52h3.603L24 20h-3.603zm-7.258 0h3.767L16.906 20h-3.674l-1.343-3.461H5.017l-1.344 3.46H0zm4.132 9.959L8.453 7.687 6.205 13.48H10.7z" />
+          </svg>
+          <span>Anthropic</span>
+        </div>
+        <div class="logo-item" title="ChatGPT">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" />
+          </svg>
+          <span>ChatGPT</span>
+        </div>
+        <div class="logo-item" title="n8n">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          <span>n8n</span>
+        </div>
+        <div class="logo-item" title="Grok xAI">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.494h2.039L6.486 3.24H4.298l13.311 17.407z" />
+          </svg>
+          <span>Grok</span>
+        </div>
+        <div class="logo-item" title="Nano Banana 2">
+          <svg viewBox="0 0 32 32" fill="currentColor">
+            <path
+              d="M26 6c0-1.1-.9-2-2-2s-2 .9-2 2c0 .4.1.8.3 1.1C19.5 8.4 17 11 17 14c0 4.4-3.6 8-8 8H7v2h2c5.5 0 10-4.5 10-10 0-2 1.9-3.8 4.1-4.8.4.5 1 .8 1.9.8 1.1 0 2-.9 2-2z" />
+          </svg>
+          <span>Nano Banana 2</span>
+        </div>
+        <div class="logo-item" title="Canva">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z" />
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+            <path d="M2 2l7.586 7.586" />
+            <circle cx="11" cy="11" r="2" />
+          </svg>
+          <span>Canva</span>
+        </div>
+        <div class="logo-item" title="Google Cloud">
+          <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="Google Cloud">
+          <span>Cloud</span>
+        </div>
+        <div class="logo-item" title="Claude Code">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+          </svg>
+          <span>Claude Code</span>
+        </div>
+        <div class="logo-item" title="Antigravity">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 19V5" />
+            <path d="M5 12l7-7 7 7" />
+            <path d="M5 19h14" />
+          </svg>
+          <span>Antigravity</span>
+        </div>
+        <!-- Set 2 -->
+        <div class="logo-item" title="Supabase">
+          <img src="https://www.vectorlogo.zone/logos/supabase/supabase-icon.svg" alt="Supabase">
+          <span>Supabase</span>
+        </div>
+        <div class="logo-item" title="Vercel">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 22.525H0l12-21.05 12 21.05z" />
+          </svg>
+          <span>Vercel</span>
+        </div>
+        <div class="logo-item" title="Anthropic">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M13.827 3.52h3.603L24 20h-3.603zm-7.258 0h3.767L16.906 20h-3.674l-1.343-3.461H5.017l-1.344 3.46H0zm4.132 9.959L8.453 7.687 6.205 13.48H10.7z" />
+          </svg>
+          <span>Anthropic</span>
+        </div>
+        <div class="logo-item" title="ChatGPT">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" />
+          </svg>
+          <span>ChatGPT</span>
+        </div>
+        <div class="logo-item" title="n8n">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          <span>n8n</span>
+        </div>
+        <div class="logo-item" title="Grok xAI">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.494h2.039L6.486 3.24H4.298l13.311 17.407z" />
+          </svg>
+          <span>Grok</span>
+        </div>
+        <div class="logo-item" title="Nano Banana 2">
+          <svg viewBox="0 0 32 32" fill="currentColor">
+            <path
+              d="M26 6c0-1.1-.9-2-2-2s-2 .9-2 2c0 .4.1.8.3 1.1C19.5 8.4 17 11 17 14c0 4.4-3.6 8-8 8H7v2h2c5.5 0 10-4.5 10-10 0-2 1.9-3.8 4.1-4.8.4.5 1 .8 1.9.8 1.1 0 2-.9 2-2z" />
+          </svg>
+          <span>Nano Banana 2</span>
+        </div>
+        <div class="logo-item" title="Canva">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z" />
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+            <path d="M2 2l7.586 7.586" />
+            <circle cx="11" cy="11" r="2" />
+          </svg>
+          <span>Canva</span>
+        </div>
+        <div class="logo-item" title="Google Cloud">
+          <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="Google Cloud">
+          <span>Cloud</span>
+        </div>
+        <div class="logo-item" title="Claude Code">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+          </svg>
+          <span>Claude Code</span>
+        </div>
+        <div class="logo-item" title="Antigravity">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 19V5" />
+            <path d="M5 12l7-7 7 7" />
+            <path d="M5 19h14" />
+          </svg>
+          <span>Antigravity</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 · CASES ===== -->
+  <section class="section section--cases" id="cases">
+    <div class="container">
+
+      <div class="cases__header fade-up">
+        <div class="label">Projetos Reais</div>
+        <h2 class="cases__h2">Você vai sair daqui<br>construindo projetos assim</h2>
+        <p class="cases__intro">Esses projetos foram desenvolvidos com exatamente as técnicas e ferramentas ensinadas
+          nos ebooks. Conteúdo aplicado — não teoria.</p>
+      </div>
+
+      <!-- tab nav -->
+      <div class="cases__tabs fade-up d1" role="tablist">
+        <button class="cases__tab active" data-tab="psi" role="tab" aria-selected="true">Gabriela Sarra</button>
+        <button class="cases__tab" data-tab="banana" role="tab" aria-selected="false">Banana AI</button>
+        <button class="cases__tab" data-tab="barber" role="tab" aria-selected="false">Trimly</button>
+        <button class="cases__tab" data-tab="fynance" role="tab" aria-selected="false">Fynance Hub</button>
+        <button class="cases__tab" data-tab="kalled" role="tab" aria-selected="false">Kalled Pistões</button>
+        <button class="cases__tab" data-tab="reis" role="tab" aria-selected="false">Reis Representações</button>
+      </div>
+
+      <!-- ── PANEL: Gabriela Sarra Psicologia (2 imagens) ── -->
+      <div class="cases__panel active fade-up d2" id="tab-psi" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">Site · Saúde Mental</div>
+            <h3 class="case-title">Gabriela Sarra<br>Psicologia</h3>
+            <p class="case-desc">Site profissional para psicóloga clínica com apresentação de serviços, bio da terapeuta
+              e formulário de contato integrado. Design humanizado, responsivo e entregue em dias.</p>
+            <div class="case-tags">
+              <span class="tag">Web Design</span>
+              <span class="tag">HTML · CSS</span>
+              <span class="tag">Saúde Mental</span>
+              <span class="tag">Claude Code</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Site Psicologa/Header.webp" alt="Gabriela Sarra — Header"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Site Psicologa/Sobre.webp" alt="Gabriela Sarra — Sobre"
+                  loading="lazy"></div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots"><span class="slider-dot active"></span><span class="slider-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: Banana AI (2 imagens) ── -->
+      <div class="cases__panel" id="tab-banana" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">SaaS · Saúde</div>
+            <h3 class="case-title">Banana AI</h3>
+            <p class="case-desc">App de acompanhamento nutricional com IA. Mais de 1.000 membros ativos, construído em
+              apenas 4 dias com Lovable e Supabase.</p>
+            <div class="case-tags">
+              <span class="tag">Lovable</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">1K+ Users</span>
+              <span class="tag">4 dias</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Banana AI/Capa.webp" alt="Banana AI — Capa" loading="lazy">
+              </div>
+              <div class="img-slide"><img src="Imagens/Banana AI/Banana AI.webp" alt="Banana AI — App de Nutrição"
+                  loading="lazy"></div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots"><span class="slider-dot active"></span><span class="slider-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: Trimly (4 imagens) ── -->
+      <div class="cases__panel" id="tab-barber" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">SaaS · Barbearias</div>
+            <h3 class="case-title">Trimly</h3>
+            <p class="case-desc">Sistema completo de agendamento para barbearias com bot WhatsApp integrado. 4 clientes
+              pagantes, construído em ~3 semanas com n8n e Supabase.</p>
+            <div class="case-tags">
+              <span class="tag">N8N</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">WhatsApp</span>
+              <span class="tag">+50 clientes</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Barber SaaS/Capa.webp" alt="Trimly — Capa" loading="lazy">
+              </div>
+              <div class="img-slide"><img src="Imagens/Barber SaaS/Na pratica.webp" alt="Trimly — Na Prática"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Barber SaaS/Trimly 2.webp" alt="Trimly — Dashboard"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Barber SaaS/Trimly 3.webp" alt="Trimly — Agenda" loading="lazy">
+              </div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span><span class="slider-dot"></span>
+              <span class="slider-dot"></span><span class="slider-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: Fynance Hub (5 imagens) ── -->
+      <div class="cases__panel" id="tab-fynance" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">SaaS · Finanças</div>
+            <h3 class="case-title">Fynance Hub</h3>
+            <p class="case-desc">Plataforma de gestão financeira pessoal e empresarial. Stack completa com Next.js,
+              Supabase e Vercel — demonstração de produto real.</p>
+            <div class="case-tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">Vercel</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">Claude Code</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Fynance AI/Capa Fynance.webp" alt="Fynance — Capa"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Fynance AI/Fynance.webp" alt="Fynance — Home" loading="lazy">
+              </div>
+              <div class="img-slide"><img src="Imagens/Fynance AI/Fynance Logged In.webp" alt="Fynance — Dashboard"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Fynance AI/Fynance Light.webp" alt="Fynance — Light Mode"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Fynance AI/Login Screen.webp" alt="Fynance — Login"
+                  loading="lazy"></div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span><span class="slider-dot"></span>
+              <span class="slider-dot"></span><span class="slider-dot"></span>
+              <span class="slider-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: Kalled Pistões (3 imagens) ── -->
+      <div class="cases__panel" id="tab-kalled" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">Catálogo · Indústria</div>
+            <h3 class="case-title">Kalled Pistões</h3>
+            <p class="case-desc">Catálogo digital de peças automotivas com sistema de pedidos integrado para
+              representante comercial. Uso real no dia a dia do negócio.</p>
+            <div class="case-tags">
+              <span class="tag">Catálogo</span>
+              <span class="tag">Pedidos</span>
+              <span class="tag">Mobile</span>
+              <span class="tag">CRM</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Catálogo Kalled-CRM/Capa.webp" alt="Kalled — Capa"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Catálogo Kalled-CRM/Catalogo.webp" alt="Kalled — Catálogo"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Catálogo Kalled-CRM/DashBoard.webp" alt="Kalled — Dashboard"
+                  loading="lazy"></div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span><span class="slider-dot"></span>
+              <span class="slider-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL: Reis Representações (3 imagens) ── -->
+      <div class="cases__panel" id="tab-reis" role="tabpanel">
+        <div class="cases__panel-inner">
+          <div class="cases__info">
+            <div class="case-seg">App · Comercial</div>
+            <h3 class="case-title">Reis Representações</h3>
+            <p class="case-desc">Aplicativo de catálogo e gestão de pedidos para representante comercial. Uso real no
+              dia a dia do negócio — automação de processos de venda.</p>
+            <div class="case-tags">
+              <span class="tag">App</span>
+              <span class="tag">Pedidos</span>
+              <span class="tag">Automação</span>
+              <span class="tag">Comercial</span>
+            </div>
+          </div>
+          <div class="cases__img-wrap">
+            <div class="img-slider">
+              <div class="img-slide active"><img src="Imagens/Reis Representações/Capa 1.webp" alt="Reis — Capa 1"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Reis Representações/Capa 2.webp" alt="Reis — Capa 2"
+                  loading="lazy"></div>
+              <div class="img-slide"><img src="Imagens/Reis Representações/Capa 3.webp" alt="Reis — Capa 3"
+                  loading="lazy"></div>
+            </div>
+            <button class="slider-prev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg></button>
+            <button class="slider-next" aria-label="Próxima imagem"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg></button>
+            <div class="slider-dots">
+              <span class="slider-dot active"></span><span class="slider-dot"></span>
+              <span class="slider-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== 04 · IMAGENS ===== -->
+  <section class="section imgcomp" id="imagens">
+    <div class="container">
+      <div class="imgcomp__header fade-up">
+        <div class="label">Geração de Imagem &amp; Vídeo</div>
+        <h2 class="sec-title">Antes e depois.<br><em>Com IA de verdade.</em></h2>
+        <p class="sec-sub">Aprenda a criar conteúdo visual profissional — do zero ao resultado final com Midjourney,
+          Grok e Nano Banana 2.</p>
+      </div>
+      <div class="imgcomp__grid">
+
+        <div class="imgcomp-card fade-up d1" data-imgcomp>
+          <img src="Imagens/Antes e Depois/Antes Lanche.webp" loading="lazy" class="imgcomp-card__before" alt="Antes">
+          <img src="Imagens/Antes e Depois/Depois Lanche.webp" loading="lazy" class="imgcomp-card__after" alt="Depois com IA">
+          <div class="imgcomp-card__divider"></div>
+          <div class="imgcomp-card__handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 16l-4-4 4-4M17 8l4 4-4 4" />
+            </svg></div>
+          <div class="imgcomp-card__labels">
+            <span class="imgcomp-label">Sem IA</span>
+            <span class="imgcomp-label imgcomp-label--after">Com IA</span>
+          </div>
+        </div>
+
+        <div class="imgcomp-card fade-up d2" data-imgcomp>
+          <img src="Imagens/Antes e Depois/Antes Redbull.webp" loading="lazy" class="imgcomp-card__before" alt="Antes">
+          <img src="Imagens/Antes e Depois/Depois Redbull.webp" loading="lazy" class="imgcomp-card__after" alt="Depois com IA">
+          <div class="imgcomp-card__divider"></div>
+          <div class="imgcomp-card__handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 16l-4-4 4-4M17 8l4 4-4 4" />
+            </svg></div>
+          <div class="imgcomp-card__labels">
+            <span class="imgcomp-label">Sem IA</span>
+            <span class="imgcomp-label imgcomp-label--after">Com IA</span>
+          </div>
+        </div>
+
+        <div class="imgcomp-card fade-up d3" data-imgcomp>
+          <img src="Imagens/Antes e Depois/Antes Tenis.webp" loading="lazy" class="imgcomp-card__before" alt="Antes">
+          <img src="Imagens/Antes e Depois/Depois Tenis.webp" loading="lazy" class="imgcomp-card__after" alt="Depois com IA">
+          <div class="imgcomp-card__divider"></div>
+          <div class="imgcomp-card__handle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 16l-4-4 4-4M17 8l4 4-4 4" />
+            </svg></div>
+          <div class="imgcomp-card__labels">
+            <span class="imgcomp-label">Sem IA</span>
+            <span class="imgcomp-label imgcomp-label--after">Com IA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 05 · SOBRE ===== -->
+  <section class="section section--sobre" id="sobre">
+    <div class="container">
+
+      <!-- header -->
+      <div class="sobre__top fade-up">
+        <span class="sobre__eyebrow">Sobre o Autor</span>
+        <h2 class="sobre__h2">Transformo empresas com IA</h2>
+        <p class="sobre__sub">Consultor especializado em RevOps, automação e sistemas escaláveis. 40+ empresas
+          atendidas, 100+ projetos entregues.</p>
+      </div>
+
+      <!-- 3-col grid -->
+      <div class="sobre__grid">
+
+        <!-- coluna esquerda -->
+        <div class="sobre__skills fade-up d1">
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Automação com IA</div>
+              <div class="skill-desc">Fluxos n8n, agentes autônomos e integrações que eliminam trabalho manual.</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Desenvolvimento de SaaS</div>
+              <div class="skill-desc">Produtos digitais completos do zero ao deploy com Next.js, Supabase e Vercel.
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">RevOps & CRM</div>
+              <div class="skill-desc">Estruturas de receita, pipelines e processos comerciais escaláveis.</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4" />
+                <circle cx="16" cy="8" r="2" />
+                <path d="M8 8h4M8 11h3" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Geração de Imagem & Vídeo</div>
+              <div class="skill-desc">Nano Banana 2, Grok, Midjourney — conteúdo visual profissional criado com IA
+                generativa.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- coluna central: foto -->
+        <div class="sobre__photo-col fade-up d2">
+          <div class="sobre__photo-frame">
+            <img src="Imagens/Gabriel Reis.webp" loading="lazy" alt="Gabriel Reis — Consultor de IA" loading="lazy">
+            <div class="sobre__photo-overlay">
+              <span class="sobre__handle">@gabrielreisia</span>
+              <a href="#combo" class="sobre__overlay-cta">Quero a Biblioteca →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- coluna direita -->
+        <div class="sobre__skills sobre__skills--right fade-up d3">
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Agentes de IA</div>
+              <div class="skill-desc">Criação de agentes com Claude, Lovable e ferramentas low-code para clientes reais.
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Deploy & Infraestrutura</div>
+              <div class="skill-desc">GitHub, Vercel, Supabase — do código ao ar em minutos com CI/CD automatizado.
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Consultoria Empresarial</div>
+              <div class="skill-desc">Diagnóstico e implementação de IA para PMEs e startups brasileiras e
+                internacionais.</div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <path d="M8 10h8M8 14h5" />
+              </svg>
+            </div>
+            <div>
+              <div class="skill-name">Engenharia de Prompt</div>
+              <div class="skill-desc">Prompts estruturados para Claude, GPT e outros LLMs — resultados previsíveis e
+                repetíveis.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- stats row -->
+      <div class="sobre__stats fade-up d2">
+        <div class="m-card">
+          <span class="m-val">40+</span>
+          <span class="m-lbl">Empresas atendidas</span>
+        </div>
+        <div class="m-card">
+          <span class="m-val">100+</span>
+          <span class="m-lbl">Projetos entregues</span>
+        </div>
+        <div class="m-card">
+          <span class="m-val">6</span>
+          <span class="m-lbl">Ebooks em 2025</span>
+        </div>
+        <div class="m-card">
+          <span class="m-val">800+</span>
+          <span class="m-lbl">Imagens geradas</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- ===== 06 · COMBO ===== -->
+  <section class="combo section" id="combo">
+    <div class="pricing-bg"></div>
+    <div class="pricing-grid-overlay"></div>
+
+    <div class="container">
+      <div class="combo__header fade-up">
+        <h2 class="combo__title" style="font-family: var(--f-outfit);">Acelere sua jornada com IA</h2>
+        <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">Escolha os tópicos do seu interesse ou leve a
+          biblioteca completa com 70% de desconto.</p>
+      </div>
+
+      <div class="combo__grid-premium">
+
+        <!-- CARD ESQUERDO: EBOOKS SEPARADOS -->
+        <div class="p-card fade-up d1">
+          <span class="p-card__tag">Conteúdo Modular</span>
+          <h3 class="p-card__title">Ebooks Avulsos</h3>
+          <p class="p-card__desc">Ideal para quem busca resolver um problema específico de automação ou deploy.</p>
+
+          <div class="p-price-wrap">
+            <span class="p-price-label">A partir de</span>
+            <div class="p-price-val"><em>R$</em>17</div>
+          </div>
+
+          <div class="p-ebook-list">
+            <div class="p-ebook-item"><span>01. Criando Apps com IA</span><span>R$37</span></div>
+            <div class="p-ebook-item"><span>02. Iniciando na IA</span><span>R$17</span></div>
+            <div class="p-ebook-item"><span>03. Guia Completo do Claude</span><span>R$27</span></div>
+            <div class="p-ebook-item"><span>04. Publicando Projetos</span><span>R$17</span></div>
+            <div class="p-ebook-item"><span>05. De Zero a SaaS</span><span>R$37</span></div>
+            <div class="p-ebook-item"><span>06. Geração de Fotos</span><span>R$27</span></div>
+            <div class="p-ebook-item"
+              style="border-top: 1px dashed rgba(255,255,255,0.2); margin-top: 8px; font-weight: 700; color: var(--text);">
+              <span>Total se comprados separadamente</span>
+              <span>R$162</span>
+            </div>
+          </div>
+
+          <a href="#cta" class="p-btn p-btn--outline" style="margin-top: 32px;">Escolher Avulsos</a>
+        </div>
+
+        <!-- CARD DIREITO: BUNDLE (DESTAQUE) -->
+        <div class="p-card p-card--featured fade-up d2">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="p-card__tag"
+              style="background: rgba(255, 77, 0, 0.1); padding: 4px 8px; border-radius: 4px;">MELHOR ESCOLHA</span>
+            <span class="p-badge-promo">-70% OFF</span>
+          </div>
+          <h3 class="p-card__title">Biblioteca Completa</h3>
+          <p class="p-card__desc">Acesso total aos 6 ebooks técnicos e atualizações futuras em 2026.</p>
+
+          <div class="p-price-wrap">
+            <span class="p-price-label" style="text-decoration: line-through; opacity: 0.5;">De R$ 162,00 por</span>
+            <div class="p-price-val" style="color: var(--primary);"><em>R$</em>47,90</div>
+          </div>
+
+          <ul class="p-features">
+            <li class="p-feature-item">
+              <svg class="p-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Todos os 6 Ebooks inclusos</span>
+            </li>
+            <li class="p-feature-item">
+              <svg class="p-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Foco em ROI e Implementação</span>
+            </li>
+            <li class="p-feature-item">
+              <svg class="p-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Workflows reais (n8n, Claude)</span>
+            </li>
+            <li class="p-feature-item">
+              <svg class="p-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Acesso vitalício + Atualizações</span>
+            </li>
+          </ul>
+
+          <a href="#" class="p-btn p-btn--primary">Garantir Biblioteca Completa</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ===== 07 · FAQ ===== -->
+  <section class="section section--faq" id="faq">
+    <div class="container">
+      <div class="faq__inner">
+
+        <!-- COLUNA ESQUERDA: sticky -->
+        <div class="faq__left fade-up">
+          <span class="faq__eyebrow">FAQ</span>
+          <h2 class="faq__title">Perguntas frequentes</h2>
+          <p class="faq__sub">Não encontrou o que procura? Fala direto comigo no Instagram.</p>
+          <a href="https://instagram.com/gabrielreisia" class="faq__cta-link" target="_blank" rel="noopener">
+            @gabrielreisia
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- COLUNA DIREITA: accordion -->
+        <div class="faq-list fade-up d1">
+
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false">
+              <span class="faq-btn-left">
+                <span class="faq-num">01</span>
+                <span class="faq-q">Como recebo os ebooks após a compra?</span>
+              </span>
+              <span class="faq-icon-wrap">
+                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-body">
+              <p class="faq-a">O acesso é liberado imediatamente após a confirmação do pagamento, direto pela plataforma
+                (Hotmart, Kiwify ou similar). Você recebe o link no e-mail cadastrado em menos de 1 minuto.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false">
+              <span class="faq-btn-left">
+                <span class="faq-num">02</span>
+                <span class="faq-q">Preciso saber programar para aproveitar o conteúdo?</span>
+              </span>
+              <span class="faq-icon-wrap">
+                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-body">
+              <p class="faq-a">Não. O conteúdo foi escrito para empreendedores, fundadores e donos de negócio que querem
+                usar IA para crescer — sem precisar ser desenvolvedor. Iniciantes são bem-vindos.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false">
+              <span class="faq-btn-left">
+                <span class="faq-num">03</span>
+                <span class="faq-q">Tem garantia de devolução?</span>
+              </span>
+              <span class="faq-icon-wrap">
+                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-body">
+              <p class="faq-a">Sim. 7 dias de garantia incondicional pelo Código de Defesa do Consumidor. Se por
+                qualquer motivo o conteúdo não for o que você esperava, basta solicitar o reembolso — sem burocracia.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false">
+              <span class="faq-btn-left">
+                <span class="faq-num">04</span>
+                <span class="faq-q">Posso comprar os ebooks separadamente?</span>
+              </span>
+              <span class="faq-icon-wrap">
+                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-body">
+              <p class="faq-a">Sim, cada ebook custa R$27,00 individualmente. Mas no combo você leva os 6 por R$47,90 —
+                uma economia de R$114,10 (70% de desconto). Faz mais sentido levar tudo de uma vez.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false">
+              <span class="faq-btn-left">
+                <span class="faq-num">05</span>
+                <span class="faq-q">O conteúdo está atualizado?</span>
+              </span>
+              <span class="faq-icon-wrap">
+                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-body">
+              <p class="faq-a">Sim. Todos os ebooks foram escritos em 2026 com as ferramentas mais atuais do mercado —
+                Claude, Lovable, n8n, Supabase, Vercel, Nano Banana 2. Conteúdo prático e aplicável agora.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== 08 · DEPOIMENTOS ===== -->
+  <section class="section depo-v2" id="depoimentos">
+    <div class="container">
+      <div class="sec-header fade-up">
+        <div class="label">Depoimentos</div>
+        <h2 class="sec-title">Quem já confiou no trabalho</h2>
+      </div>
+    </div>
+
+    <div class="container" style="max-width:1100px">
+      <div class="depo-columns-wrapper">
+
+        <div class="depo-col depo-col--1">
+          <div class="depo-col-inner">
+
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Em semanas estávamos gerando vídeos com IA que antes levavam dias de edição. O
+                volume de conteúdo dobrou, o custo caiu pela metade. Gabriel entregou resultado, não promessa."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">ML</div>
+                <div>
+                  <div class="depo-name">Matheus Lirani</div>
+                  <div class="depo-role">LL Team · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"A geração de conteúdo visual mudou completamente na Pisom. Gabriel entregou um
+                processo que qualquer pessoa do time consegue replicar. Isso tem valor imensurável para uma marca de
+                moda."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">ER</div>
+                <div>
+                  <div class="depo-name">Elson dos Reis</div>
+                  <div class="depo-role">Pisom Jeans · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Peça-chave no desenvolvimento do Banana AI. A expertise em agentes de IA foi o
+                diferencial que precisávamos para sair do papel. Entregou mais do que o escopo combinado."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">DS</div>
+                <div>
+                  <div class="depo-name">Diego Seleguini</div>
+                  <div class="depo-role">Banana AI · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Precisava de um site que transmitisse confiança e acolhimento. Gabriel entregou isso
+                com tecnologia — agendamento automatizado, design premium. Meus pacientes perguntam onde foi feito."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GS</div>
+                <div>
+                  <div class="depo-name">Gabriela Sarra</div>
+                  <div class="depo-role">Psicóloga Gabriela · Site</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Em semanas estávamos gerando vídeos com IA que antes levavam dias de edição. O
+                volume de conteúdo dobrou, o custo caiu pela metade. Gabriel entregou resultado, não promessa."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">ML</div>
+                <div>
+                  <div class="depo-name">Matheus Lirani</div>
+                  <div class="depo-role">LL Team · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"A geração de conteúdo visual mudou completamente na Pisom. Gabriel entregou um
+                processo que qualquer pessoa do time consegue replicar. Isso tem valor imensurável para uma marca de
+                moda."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">ER</div>
+                <div>
+                  <div class="depo-name">Elson dos Reis</div>
+                  <div class="depo-role">Pisom Jeans · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Peça-chave no desenvolvimento do Banana AI. A expertise em agentes de IA foi o
+                diferencial que precisávamos para sair do papel. Entregou mais do que o escopo combinado."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">DS</div>
+                <div>
+                  <div class="depo-name">Diego Seleguini</div>
+                  <div class="depo-role">Banana AI · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Precisava de um site que transmitisse confiança e acolhimento. Gabriel entregou isso
+                com tecnologia — agendamento automatizado, design premium. Meus pacientes perguntam onde foi feito."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GS</div>
+                <div>
+                  <div class="depo-name">Gabriela Sarra</div>
+                  <div class="depo-role">Psicóloga Gabriela · Site</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="depo-col depo-col--2">
+          <div class="depo-col-inner">
+
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Trabalhamos juntos nos vídeos e no próprio app do Fynance. A visão técnica para IA
+                aplicada é diferente de tudo que vi. Ele não só entrega — explica o raciocínio por trás de cada
+                decisão."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GA</div>
+                <div>
+                  <div class="depo-name">Gabriel</div>
+                  <div class="depo-role">Fynance · Vídeos & Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Nunca imaginei que uma empresa de topografia precisaria de IA. Gabriel mostrou que
+                precisávamos. Nossos vídeos institucionais ficaram profissionais por uma fração do custo anterior."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">FP</div>
+                <div>
+                  <div class="depo-name">Francisco Prestes</div>
+                  <div class="depo-role">Acqua Topografia · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Do zero ao deploy, cirúrgico. O Trimly ficou exatamente como imaginamos — e mais
+                rápido do que achávamos possível. Quem entende o produto antes de codar faz toda a diferença."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">MS</div>
+                <div>
+                  <div class="depo-name">Matheus Silva</div>
+                  <div class="depo-role">Trimly · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Trabalhamos juntos nos vídeos e no próprio app do Fynance. A visão técnica para IA
+                aplicada é diferente de tudo que vi. Ele não só entrega — explica o raciocínio por trás de cada
+                decisão."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GA</div>
+                <div>
+                  <div class="depo-name">Gabriel</div>
+                  <div class="depo-role">Fynance · Vídeos & Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Nunca imaginei que uma empresa de topografia precisaria de IA. Gabriel mostrou que
+                precisávamos. Nossos vídeos institucionais ficaram profissionais por uma fração do custo anterior."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">FP</div>
+                <div>
+                  <div class="depo-name">Francisco Prestes</div>
+                  <div class="depo-role">Acqua Topografia · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Do zero ao deploy, cirúrgico. O Trimly ficou exatamente como imaginamos — e mais
+                rápido do que achávamos possível. Quem entende o produto antes de codar faz toda a diferença."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">MS</div>
+                <div>
+                  <div class="depo-name">Matheus Silva</div>
+                  <div class="depo-role">Trimly · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="depo-col depo-col--3">
+          <div class="depo-col-inner">
+
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Os vídeos com IA aceleraram nossa presença digital em meses. Gabriel entregou
+                qualidade de agência com custo de freelancer — e ainda documentou o processo para o time usar sozinho."
+              </p>
+              <div class="depo-author">
+                <div class="depo-avatar">LC</div>
+                <div>
+                  <div class="depo-name">Lucas Costa</div>
+                  <div class="depo-role">Kalled Pistões · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"O app automatizou processos que consumiam horas da equipe toda semana. Gabriel
+                entendeu o negócio antes de escrever uma linha de código. O resultado reflete essa atenção ao detalhe."
+              </p>
+              <div class="depo-author">
+                <div class="depo-avatar">KP</div>
+                <div>
+                  <div class="depo-name">Equipe Kalled</div>
+                  <div class="depo-role">Kalled Pistões · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Os vídeos abriram portas que o comercial tradicional não conseguia. A IA gerou
+                conteúdo que parece produção profissional — e o custo por lead caiu drasticamente no trimestre."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GA</div>
+                <div>
+                  <div class="depo-name">Gabriel</div>
+                  <div class="depo-role">Fynance · Estratégia de Conteúdo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Os vídeos com IA aceleraram nossa presença digital em meses. Gabriel entregou
+                qualidade de agência com custo de freelancer — e ainda documentou o processo para o time usar sozinho."
+              </p>
+              <div class="depo-author">
+                <div class="depo-avatar">LC</div>
+                <div>
+                  <div class="depo-name">Lucas Costa</div>
+                  <div class="depo-role">Kalled Pistões · Vídeos de IA</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"O app automatizou processos que consumiam horas da equipe toda semana. Gabriel
+                entendeu o negócio antes de escrever uma linha de código. O resultado reflete essa atenção ao detalhe."
+              </p>
+              <div class="depo-author">
+                <div class="depo-avatar">KP</div>
+                <div>
+                  <div class="depo-name">Equipe Kalled</div>
+                  <div class="depo-role">Kalled Pistões · Aplicativo</div>
+                </div>
+              </div>
+            </div>
+            <div class="depo-card">
+              <div class="stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <p class="depo-text">"Os vídeos abriram portas que o comercial tradicional não conseguia. A IA gerou
+                conteúdo que parece produção profissional — e o custo por lead caiu drasticamente no trimestre."</p>
+              <div class="depo-author">
+                <div class="depo-avatar">GA</div>
+                <div>
+                  <div class="depo-name">Gabriel</div>
+                  <div class="depo-role">Fynance · Estratégia de Conteúdo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ===== 09 · CTA FINAL ===== -->
+  <section class="cta-final section" id="cta">
+    <div class="container">
+      <div class="cta-card fade-up">
+
+        <!-- COLUNA ESQUERDA -->
+        <div class="cta-left">
+          <span class="cta-badge"><span class="cta-badge-dot"></span>Oferta especial</span>
+
+          <h2 class="cta-h2">Pare de só consumir.<br><em>Comece a construir.</em></h2>
+
+          <ul class="cta-checklist">
+            <li>
+              <span class="cta-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></span>
+              6 ebooks completos com acesso imediato e vitalício
+            </li>
+            <li>
+              <span class="cta-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></span>
+              Automação, SaaS, Agentes de IA, RevOps e mais
+            </li>
+            <li>
+              <span class="cta-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></span>
+              Conteúdo aplicado — sem teoria, só o que funciona
+            </li>
+            <li>
+              <span class="cta-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg></span>
+              Atualizações futuras inclusas sem custo adicional
+            </li>
+          </ul>
+        </div>
+
+        <!-- COLUNA DIREITA -->
+        <div class="cta-right">
+          <div class="cta-pricing-block">
+            <span class="cta-price-old">De R$162,00</span>
+            <div class="cta-price-main">
+              <span class="cta-price-currency">R$</span>
+              <span class="cta-price-value">47,90</span>
+            </div>
+            <span class="cta-price-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Você economiza R$114,10 — 70% off
+            </span>
+            <span class="cta-price-note">Pagamento único · Sem assinatura</span>
+          </div>
+
+          <div class="cta-btn-wrap">
+            <a href="#" class="cta-btn-primary">
+              Comprar a Biblioteca Completa
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="cta-guarantees">
+            <div class="cta-guarantee-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              Compra 100% segura via plataforma criptografada
+            </div>
+            <div class="cta-guarantee-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              Acesso liberado em menos de 1 minuto após o pagamento
+            </div>
+            <div class="cta-guarantee-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              Suporte direto com Gabriel Reis
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ===== 10 · FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="#" class="footer__logo">Gabriel Reis <em>IA</em></a>
+      <ul class="footer__links">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+      <span class="footer__copy">© 2026 Gabriel Reis IA</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── HERO WORD-BY-WORD ANIMATION ───────────────────────────────────────────
+    (function () {
+      const h1 = document.getElementById('heroH1');
+      if (!h1) return;
+
+      // Reconstruct inner HTML wrapping each word in an animated span
+      // We preserve the <em> tag for "IA de verdade"
+      const emText = 'IA de verdade';
+      const before = 'Aprenda a construir com ';
+      const startDelay = 0.28; // seconds after page load
+      const step = 0.13;
+
+      const beforeWords = before.trim().split(' ');
+      const emWords = emText.split(' ');
+
+      let html = '';
+      let idx = 0;
+
+      beforeWords.forEach(word => {
+        const delay = (startDelay + idx * step).toFixed(2);
+        html += `<span class="w" style="animation-delay:${delay}s">${word}</span> `;
+        idx++;
+      });
+
+      html += '<em>';
+      emWords.forEach((word, i) => {
+        const delay = (startDelay + idx * step).toFixed(2);
+        html += `<span class="w" style="animation-delay:${delay}s">${word}</span>`;
+        if (i < emWords.length - 1) html += ' ';
+        idx++;
+      });
+      html += '</em>';
+
+      h1.innerHTML = html;
+    })();
+
+    // ── FADE-UP ON SCROLL ──────────────────────────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    // ── CASES TABS ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.cases__tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.cases__tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        document.querySelectorAll('.cases__panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById('tab-' + target);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // ── IMAGE SLIDERS ──────────────────────────────────────────────────────────
+    document.querySelectorAll('.cases__img-wrap').forEach(wrap => {
+      const slides = wrap.querySelectorAll('.img-slide');
+      const dots = wrap.querySelectorAll('.slider-dot');
+      const prev = wrap.querySelector('.slider-prev');
+      const next = wrap.querySelector('.slider-next');
+      if (slides.length <= 1) return; // single image, skip
+
+      let cur = 0;
+
+      function goTo(n) {
+        slides[cur].classList.remove('active');
+        dots[cur] && dots[cur].classList.remove('active');
+        cur = (n + slides.length) % slides.length;
+        slides[cur].classList.add('active');
+        dots[cur] && dots[cur].classList.add('active');
+      }
+
+      prev && prev.addEventListener('click', () => goTo(cur - 1));
+      next && next.addEventListener('click', () => goTo(cur + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+      // swipe support (touch)
+      let touchX = 0;
+      wrap.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+      wrap.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
+      }, { passive: true });
+    });
+
+    // ── FAQ ACCORDION ──────────────────────────────────────────────────────────
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-btn').addEventListener('click', () => {
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+        });
+        if (!open) {
+          item.classList.add('open');
+          item.querySelector('.faq-btn').setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ── IMAGE COMPARISON SLIDER ────────────────────────────────────────────────
+    document.querySelectorAll('[data-imgcomp]').forEach(card => {
+      const after = card.querySelector('.imgcomp-card__after');
+      const divider = card.querySelector('.imgcomp-card__divider');
+      const handle = card.querySelector('.imgcomp-card__handle');
+      let dragging = false;
+
+      function setPos(x) {
+        const rect = card.getBoundingClientRect();
+        let pct = Math.min(100, Math.max(0, ((x - rect.left) / rect.width) * 100));
+        after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+        divider.style.left = pct + '%';
+        handle.style.left = pct + '%';
+      }
+
+      card.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
+      card.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+      window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('mouseup', () => dragging = false);
+      window.addEventListener('touchend', () => dragging = false);
+    });
+
+    // ── SPARKLES GENERATOR (global) ────────────────────────────────────────────
+    const galaxySparkles = document.getElementById('galaxy-sparkles');
+
+    function createSparkle() {
+      if (!galaxySparkles) return;
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = '0s';
+      s.style.opacity = (Math.random() * 0.6 + 0.15).toString();
+      galaxySparkles.appendChild(s);
+      setTimeout(() => s.remove(), 3000);
+    }
+
+    if (window.innerWidth > 768) {
+      setInterval(createSparkle, 150);
+    }
+  </script>
+
+</body>
+
+</html>
